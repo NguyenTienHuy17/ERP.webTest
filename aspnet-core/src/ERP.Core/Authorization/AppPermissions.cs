@@ -6,11 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_ThanhPhos = "Pages.ThanhPhos";
+        public const string Pages_ThanhPhos_Create = "Pages.ThanhPhos.Create";
+        public const string Pages_ThanhPhos_Edit = "Pages.ThanhPhos.Edit";
+        public const string Pages_ThanhPhos_Delete = "Pages.ThanhPhos.Delete";
+
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
         public const string Pages = "Pages";
 
-        public const string Pages_DemoUiComponents= "Pages.DemoUiComponents";
+        public const string Pages_DemoUiComponents = "Pages.DemoUiComponents";
         public const string Pages_Administration = "Pages.Administration";
 
         public const string Pages_Administration_Roles = "Pages.Administration.Roles";

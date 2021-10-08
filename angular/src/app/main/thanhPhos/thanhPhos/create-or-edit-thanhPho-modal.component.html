@@ -1,0 +1,46 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #thanhPhoForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="thanhPho.id">{{l("EditThanhPho")}}</span>
+                        <span *ngIf="!thanhPho.id">{{l("CreateNewThanhPho")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+
+								<div class="form-group">
+									<label for="ThanhPho_MaTP">{{l("MaTP")}} *</label>
+									<input type="text" #ThanhPho_MaTP="ngModel" id="ThanhPho_MaTP" class="form-control" [(ngModel)]="thanhPho.maTP" name="MaTP"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="ThanhPho_MaTP"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="ThanhPho_TenTP">{{l("TenTP")}} *</label>
+									<input type="text" #ThanhPho_TenTP="ngModel" id="ThanhPho_TenTP" class="form-control" [(ngModel)]="thanhPho.tenTP" name="TenTP"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="ThanhPho_TenTP"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="ThanhPho_MoTa">{{l("MoTa")}}</label>
+									<input type="text" #ThanhPho_MoTa="ngModel" id="ThanhPho_MoTa" class="form-control" [(ngModel)]="thanhPho.moTa" name="MoTa"   minlength="0"  maxlength="500" />
+								    <validation-messages [formCtrl]="ThanhPho_MoTa"></validation-messages>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!thanhPhoForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

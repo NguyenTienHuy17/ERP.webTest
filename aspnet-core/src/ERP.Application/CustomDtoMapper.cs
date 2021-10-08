@@ -1,3 +1,5 @@
+﻿using ERP.ThanhPhos.Dtos;
+using ERP.ThanhPhos;
 using Abp.Application.Editions;
 using Abp.Application.Features;
 using Abp.Auditing;
@@ -41,6 +43,8 @@ namespace ERP
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditThanhPhoDto, ThanhPho>().ReverseMap();
+            configuration.CreateMap<ThanhPhoDto, ThanhPho>().ReverseMap();
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();
             configuration.CreateMap<SingleLineStringInputType, FeatureInputTypeDto>();
@@ -81,7 +85,6 @@ namespace ERP
             configuration.CreateMap<Edition, EditionEditDto>();
             configuration.CreateMap<Edition, SubscribableEdition>();
             configuration.CreateMap<Edition, EditionSelectDto>();
-
 
             //Payment
             configuration.CreateMap<SubscriptionPaymentDto, SubscriptionPayment>().ReverseMap();

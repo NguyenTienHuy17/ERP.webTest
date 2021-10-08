@@ -8257,6 +8257,363 @@ export class TenantSettingsServiceProxy {
 }
 
 @Injectable()
+export class ThanhPhosServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param maTPFilter (optional) 
+     * @param tenTPFilter (optional) 
+     * @param moTaFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | null | undefined, maTPFilter: string | null | undefined, tenTPFilter: string | null | undefined, moTaFilter: string | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetThanhPhoForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/ThanhPhos/GetAll?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (maTPFilter !== undefined)
+            url_ += "MaTPFilter=" + encodeURIComponent("" + maTPFilter) + "&"; 
+        if (tenTPFilter !== undefined)
+            url_ += "TenTPFilter=" + encodeURIComponent("" + tenTPFilter) + "&"; 
+        if (moTaFilter !== undefined)
+            url_ += "MoTaFilter=" + encodeURIComponent("" + moTaFilter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetThanhPhoForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetThanhPhoForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetThanhPhoForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfGetThanhPhoForViewDto.fromJS(resultData200) : new PagedResultDtoOfGetThanhPhoForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetThanhPhoForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getThanhPhoForView(id: number | null | undefined): Observable<GetThanhPhoForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/ThanhPhos/GetThanhPhoForView?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetThanhPhoForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetThanhPhoForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetThanhPhoForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetThanhPhoForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetThanhPhoForView(response: HttpResponseBase): Observable<GetThanhPhoForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetThanhPhoForViewDto.fromJS(resultData200) : new GetThanhPhoForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetThanhPhoForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getThanhPhoForEdit(id: number | null | undefined): Observable<GetThanhPhoForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/ThanhPhos/GetThanhPhoForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetThanhPhoForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetThanhPhoForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetThanhPhoForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetThanhPhoForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetThanhPhoForEdit(response: HttpResponseBase): Observable<GetThanhPhoForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetThanhPhoForEditOutput.fromJS(resultData200) : new GetThanhPhoForEditOutput();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetThanhPhoForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param input (optional) 
+     * @return Success
+     */
+    createOrEdit(input: CreateOrEditThanhPhoDto | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ThanhPhos/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ThanhPhos/Delete?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param maTPFilter (optional) 
+     * @param tenTPFilter (optional) 
+     * @param moTaFilter (optional) 
+     * @return Success
+     */
+    getThanhPhosToExcel(filter: string | null | undefined, maTPFilter: string | null | undefined, tenTPFilter: string | null | undefined, moTaFilter: string | null | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/ThanhPhos/GetThanhPhosToExcel?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (maTPFilter !== undefined)
+            url_ += "MaTPFilter=" + encodeURIComponent("" + maTPFilter) + "&"; 
+        if (tenTPFilter !== undefined)
+            url_ += "TenTPFilter=" + encodeURIComponent("" + tenTPFilter) + "&"; 
+        if (moTaFilter !== undefined)
+            url_ += "MoTaFilter=" + encodeURIComponent("" + moTaFilter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetThanhPhosToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetThanhPhosToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetThanhPhosToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class TimingServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -19262,6 +19619,222 @@ export class TenantOtherSettingsEditDto implements ITenantOtherSettingsEditDto {
 
 export interface ITenantOtherSettingsEditDto {
     isQuickThemeSelectEnabled: boolean | undefined;
+}
+
+export class PagedResultDtoOfGetThanhPhoForViewDto implements IPagedResultDtoOfGetThanhPhoForViewDto {
+    totalCount!: number | undefined;
+    items!: GetThanhPhoForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetThanhPhoForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetThanhPhoForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetThanhPhoForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetThanhPhoForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetThanhPhoForViewDto {
+    totalCount: number | undefined;
+    items: GetThanhPhoForViewDto[] | undefined;
+}
+
+export class GetThanhPhoForViewDto implements IGetThanhPhoForViewDto {
+    thanhPho!: ThanhPhoDto | undefined;
+
+    constructor(data?: IGetThanhPhoForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.thanhPho = data["thanhPho"] ? ThanhPhoDto.fromJS(data["thanhPho"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetThanhPhoForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetThanhPhoForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["thanhPho"] = this.thanhPho ? this.thanhPho.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetThanhPhoForViewDto {
+    thanhPho: ThanhPhoDto | undefined;
+}
+
+export class ThanhPhoDto implements IThanhPhoDto {
+    maTP!: string | undefined;
+    tenTP!: string | undefined;
+    moTa!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: IThanhPhoDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.maTP = data["maTP"];
+            this.tenTP = data["tenTP"];
+            this.moTa = data["moTa"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ThanhPhoDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ThanhPhoDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["maTP"] = this.maTP;
+        data["tenTP"] = this.tenTP;
+        data["moTa"] = this.moTa;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IThanhPhoDto {
+    maTP: string | undefined;
+    tenTP: string | undefined;
+    moTa: string | undefined;
+    id: number | undefined;
+}
+
+export class GetThanhPhoForEditOutput implements IGetThanhPhoForEditOutput {
+    thanhPho!: CreateOrEditThanhPhoDto | undefined;
+
+    constructor(data?: IGetThanhPhoForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.thanhPho = data["thanhPho"] ? CreateOrEditThanhPhoDto.fromJS(data["thanhPho"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetThanhPhoForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetThanhPhoForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["thanhPho"] = this.thanhPho ? this.thanhPho.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetThanhPhoForEditOutput {
+    thanhPho: CreateOrEditThanhPhoDto | undefined;
+}
+
+export class CreateOrEditThanhPhoDto implements ICreateOrEditThanhPhoDto {
+    maTP!: string;
+    tenTP!: string;
+    moTa!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditThanhPhoDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.maTP = data["maTP"];
+            this.tenTP = data["tenTP"];
+            this.moTa = data["moTa"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditThanhPhoDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditThanhPhoDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["maTP"] = this.maTP;
+        data["tenTP"] = this.tenTP;
+        data["moTa"] = this.moTa;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditThanhPhoDto {
+    maTP: string;
+    tenTP: string;
+    moTa: string | undefined;
+    id: number | undefined;
 }
 
 export enum SettingScopes {

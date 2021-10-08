@@ -1,6 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>
+  <texts>    <text name="ThanhPhos">Thanh phos</text>
+    <text name="ThanhPho">Thanh pho</text>
+    <text name="ERP.ThanhPhos.ThanhPho">ThanhPho</text>
+    <text name="MaTP">Ma t p</text>
+    <text name="TenTP">Ten t p</text>
+    <text name="MoTa">Mo ta</text>
+    <text name="ThanhPhosHeaderInfo">Thanh phos header info</text>
+    <text name="CreateNewThanhPho">Create new thanh pho</text>
+    <text name="EditThanhPho">Edit thanh pho</text>
+    <text name="DeleteThanhPho">Delete thanh pho</text>
+    <text name="{0}IsRequired">{0} is required.</text>
+    <text name="View">View</text>
+    <text name="Details">Details</text>
+    <text name="Pick">Pick</text>
+    <text name="True">True</text>
+    <text name="False">False</text>
+    <text name="MinValue">Min</text>
+    <text name="MaxValue">Max</text>
+
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

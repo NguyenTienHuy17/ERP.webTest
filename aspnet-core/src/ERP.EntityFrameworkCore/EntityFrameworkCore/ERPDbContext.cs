@@ -1,4 +1,5 @@
-﻿using Abp.IdentityServer4;
+﻿using ERP.ThanhPhos;
+using Abp.IdentityServer4;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ERP.Authorization.Roles;
@@ -15,6 +16,8 @@ namespace ERP.EntityFrameworkCore
 {
     public class ERPDbContext : AbpZeroDbContext<Tenant, Role, User, ERPDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<ThanhPho> ThanhPhos { get; set; }
+
         /* Define an IDbSet for each entity of the application */
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
@@ -34,17 +37,21 @@ namespace ERP.EntityFrameworkCore
         public ERPDbContext(DbContextOptions<ERPDbContext> options)
             : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<BinaryObject>(b =>
+            modelBuilder.Entity<ThanhPho>(t =>
             {
-                b.HasIndex(e => new { e.TenantId });
+                t.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<BinaryObject>(b =>
+                       {
+                           b.HasIndex(e => new { e.TenantId });
+                       });
 
             modelBuilder.Entity<ChatMessage>(b =>
             {

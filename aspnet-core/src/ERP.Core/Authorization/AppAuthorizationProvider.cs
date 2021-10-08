@@ -29,6 +29,12 @@ namespace ERP.Authorization
             //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
+
+            var thanhPhos = pages.CreateChildPermission(AppPermissions.Pages_ThanhPhos, L("ThanhPhos"));
+            thanhPhos.CreateChildPermission(AppPermissions.Pages_ThanhPhos_Create, L("CreateNewThanhPho"));
+            thanhPhos.CreateChildPermission(AppPermissions.Pages_ThanhPhos_Edit, L("EditThanhPho"));
+            thanhPhos.CreateChildPermission(AppPermissions.Pages_ThanhPhos_Delete, L("DeleteThanhPho"));
+
             pages.CreateChildPermission(AppPermissions.Pages_DemoUiComponents, L("DemoUiComponents"));
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
@@ -73,7 +79,7 @@ namespace ERP.Authorization
             editions.CreateChildPermission(AppPermissions.Pages_Editions_Create, L("CreatingNewEdition"), multiTenancySides: MultiTenancySides.Host);
             editions.CreateChildPermission(AppPermissions.Pages_Editions_Edit, L("EditingEdition"), multiTenancySides: MultiTenancySides.Host);
             editions.CreateChildPermission(AppPermissions.Pages_Editions_Delete, L("DeletingEdition"), multiTenancySides: MultiTenancySides.Host);
-            editions.CreateChildPermission(AppPermissions.Pages_Editions_MoveTenantsToAnotherEdition, L("MoveTenantsToAnotherEdition"), multiTenancySides: MultiTenancySides.Host); 
+            editions.CreateChildPermission(AppPermissions.Pages_Editions_MoveTenantsToAnotherEdition, L("MoveTenantsToAnotherEdition"), multiTenancySides: MultiTenancySides.Host);
 
             var tenants = pages.CreateChildPermission(AppPermissions.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
             tenants.CreateChildPermission(AppPermissions.Pages_Tenants_Create, L("CreatingNewTenant"), multiTenancySides: MultiTenancySides.Host);
