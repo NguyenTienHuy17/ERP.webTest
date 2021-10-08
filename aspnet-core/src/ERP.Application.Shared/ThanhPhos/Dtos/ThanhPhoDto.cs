@@ -11,5 +11,7 @@ namespace ERP.ThanhPhos.Dtos
 
         public string MoTa { get; set; }
 
+        public string ZipCode { get; set; }
+
     }
 }

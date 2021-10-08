@@ -36,6 +36,7 @@ export class ThanhPhosComponent extends AppComponentBase {
     maTPFilter = '';
     tenTPFilter = '';
     moTaFilter = '';
+    zipCodeFilter = '';
 
 
 
@@ -66,6 +67,7 @@ export class ThanhPhosComponent extends AppComponentBase {
             this.maTPFilter,
             this.tenTPFilter,
             this.moTaFilter,
+            this.zipCodeFilter,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getSkipCount(this.paginator, event),
             this.primengTableHelper.getMaxResultCount(this.paginator, event)

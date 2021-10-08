@@ -8272,12 +8272,13 @@ export class ThanhPhosServiceProxy {
      * @param maTPFilter (optional) 
      * @param tenTPFilter (optional) 
      * @param moTaFilter (optional) 
+     * @param zipCodeFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | null | undefined, maTPFilter: string | null | undefined, tenTPFilter: string | null | undefined, moTaFilter: string | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetThanhPhoForViewDto> {
+    getAll(filter: string | null | undefined, maTPFilter: string | null | undefined, tenTPFilter: string | null | undefined, moTaFilter: string | null | undefined, zipCodeFilter: string | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetThanhPhoForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/ThanhPhos/GetAll?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
@@ -8287,6 +8288,8 @@ export class ThanhPhosServiceProxy {
             url_ += "TenTPFilter=" + encodeURIComponent("" + tenTPFilter) + "&"; 
         if (moTaFilter !== undefined)
             url_ += "MoTaFilter=" + encodeURIComponent("" + moTaFilter) + "&"; 
+        if (zipCodeFilter !== undefined)
+            url_ += "ZipCodeFilter=" + encodeURIComponent("" + zipCodeFilter) + "&"; 
         if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount !== undefined)
@@ -19709,6 +19712,7 @@ export class ThanhPhoDto implements IThanhPhoDto {
     maTP!: string | undefined;
     tenTP!: string | undefined;
     moTa!: string | undefined;
+    zipCode!: string | undefined;
     id!: number | undefined;
 
     constructor(data?: IThanhPhoDto) {
@@ -19725,6 +19729,7 @@ export class ThanhPhoDto implements IThanhPhoDto {
             this.maTP = data["maTP"];
             this.tenTP = data["tenTP"];
             this.moTa = data["moTa"];
+            this.zipCode = data["zipCode"];
             this.id = data["id"];
         }
     }
@@ -19741,6 +19746,7 @@ export class ThanhPhoDto implements IThanhPhoDto {
         data["maTP"] = this.maTP;
         data["tenTP"] = this.tenTP;
         data["moTa"] = this.moTa;
+        data["zipCode"] = this.zipCode;
         data["id"] = this.id;
         return data; 
     }
@@ -19750,6 +19756,7 @@ export interface IThanhPhoDto {
     maTP: string | undefined;
     tenTP: string | undefined;
     moTa: string | undefined;
+    zipCode: string | undefined;
     id: number | undefined;
 }
 
@@ -19793,6 +19800,7 @@ export class CreateOrEditThanhPhoDto implements ICreateOrEditThanhPhoDto {
     maTP!: string;
     tenTP!: string;
     moTa!: string | undefined;
+    zipCode!: string | undefined;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditThanhPhoDto) {
@@ -19809,6 +19817,7 @@ export class CreateOrEditThanhPhoDto implements ICreateOrEditThanhPhoDto {
             this.maTP = data["maTP"];
             this.tenTP = data["tenTP"];
             this.moTa = data["moTa"];
+            this.zipCode = data["zipCode"];
             this.id = data["id"];
         }
     }
@@ -19825,6 +19834,7 @@ export class CreateOrEditThanhPhoDto implements ICreateOrEditThanhPhoDto {
         data["maTP"] = this.maTP;
         data["tenTP"] = this.tenTP;
         data["moTa"] = this.moTa;
+        data["zipCode"] = this.zipCode;
         data["id"] = this.id;
         return data; 
     }
@@ -19834,6 +19844,7 @@ export interface ICreateOrEditThanhPhoDto {
     maTP: string;
     tenTP: string;
     moTa: string | undefined;
+    zipCode: string | undefined;
     id: number | undefined;
 }
 

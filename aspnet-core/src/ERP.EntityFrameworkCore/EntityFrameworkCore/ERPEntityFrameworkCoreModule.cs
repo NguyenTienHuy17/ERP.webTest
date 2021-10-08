@@ -28,7 +28,7 @@ namespace ERP.EntityFrameworkCore
             if (!SkipDbContextRegistration)
             {
                 Configuration.Modules.AbpEfCore().AddDbContext<ERPDbContext>(options =>
-                {
+               {
                     if (options.ExistingConnection != null)
                     {
                         ERPDbContextConfigurer.Configure(options.DbContextOptions, options.ExistingConnection);

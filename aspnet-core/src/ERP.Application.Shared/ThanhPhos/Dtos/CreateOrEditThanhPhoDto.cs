@@ -17,6 +17,7 @@ namespace ERP.ThanhPhos.Dtos
 
         [StringLength(ThanhPhoConsts.MaxMoTaLength, MinimumLength = ThanhPhoConsts.MinMoTaLength)]
         public string MoTa { get; set; }
+        public string ZipCode { get; set; }
 
     }
 }

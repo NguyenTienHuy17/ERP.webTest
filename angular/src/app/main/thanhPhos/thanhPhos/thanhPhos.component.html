@@ -65,6 +65,12 @@
 									<input type="text" class="form-control" id="MoTaFilter" name="moTaFilter" [(ngModel)]="moTaFilter">
 								</div>
                             </div>
+                            <div class="col-md-3">
+								<div class="form-group">
+									<label for="ZipCodeFilter">{{l("ZipCode")}}</label>
+									<input type="text" class="form-control" id="ZipCodeFilter" name="zipCodeFilter" [(ngModel)]="zipCodeFilter">
+								</div>
+                            </div>
 
                         </div>
                         <div class="row mb-2">
@@ -105,6 +111,10 @@
                                         {{l('MoTa')}}
                                         <p-sortIcon field="thanhPho.moTa"></p-sortIcon>
                                     </th>
+                                    <th style="width: 150px" pSortableColumn="moTa">
+                                        {{l('ZipCode')}}
+                                        <p-sortIcon field="thanhPho.moTa"></p-sortIcon>
+                                    </th>
 
                                 </tr>
                             </ng-template>                           
@@ -143,6 +153,10 @@
                                     <td style="width:150px">
 											<span class="ui-column-title"> {{l('MoTa')}}</span>
 											{{record.thanhPho.moTa}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ZipCode')}}</span>
+											{{record.thanhPho.zipCode}}
 										</td>
 
                                 </tr>

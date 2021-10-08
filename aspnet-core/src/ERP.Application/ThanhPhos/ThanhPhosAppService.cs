@@ -38,7 +38,8 @@ namespace ERP.ThanhPhos
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.MaTP.Contains(input.Filter) || e.TenTP.Contains(input.Filter) || e.MoTa.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.MaTPFilter), e => e.MaTP == input.MaTPFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TenTPFilter), e => e.TenTP == input.TenTPFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.MoTaFilter), e => e.MoTa == input.MoTaFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.MoTaFilter), e => e.MoTa == input.MoTaFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ZipCodeFilter), e => e.ZipCode == input.ZipCodeFilter);
 
             var pagedAndFilteredThanhPhos = filteredThanhPhos
                 .OrderBy(input.Sorting ?? "id asc")
@@ -47,10 +48,10 @@ namespace ERP.ThanhPhos
             var thanhPhos = from o in pagedAndFilteredThanhPhos
                             select new
                             {
-
                                 o.MaTP,
                                 o.TenTP,
                                 o.MoTa,
+                                o.ZipCode,
                                 Id = o.Id
                             };
 
@@ -70,6 +71,7 @@ namespace ERP.ThanhPhos
                         TenTP = o.TenTP,
                         MoTa = o.MoTa,
                         Id = o.Id,
+                        ZipCode = o.ZipCode,
                     }
                 };
 

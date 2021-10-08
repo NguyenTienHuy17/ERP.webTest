@@ -32,6 +32,12 @@
 									<input type="text" #ThanhPho_MoTa="ngModel" id="ThanhPho_MoTa" class="form-control" [(ngModel)]="thanhPho.moTa" name="MoTa"   minlength="0"  maxlength="500" />
 								    <validation-messages [formCtrl]="ThanhPho_MoTa"></validation-messages>
 								</div>
+
+                                <div class="form-group">
+									<label for="ThanhPho_ZipCode">{{l("ZipCode")}}</label>
+									<input type="text" #ThanhPho_ZipCode="ngModel" id="ThanhPho_ZipCode" class="form-control" [(ngModel)]="thanhPho.zipCode" name="ZipCode"   minlength="0"  maxlength="500" />
+								    <validation-messages [formCtrl]="ThanhPho_ZipCode"></validation-messages>
+								</div>
 					
 
                 </div>

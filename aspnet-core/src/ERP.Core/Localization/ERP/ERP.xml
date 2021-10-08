@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="ThanhPhos">Thanh phos</text>
+  <texts>
+    <text name="ThanhPhos">Thanh phos</text>
     <text name="ThanhPho">Thanh pho</text>
     <text name="ERP.ThanhPhos.ThanhPho">ThanhPho</text>
-    <text name="MaTP">Ma t p</text>
-    <text name="TenTP">Ten t p</text>
+    <text name="MaTP">Ma thanh pho</text>
+    <text name="TenTP">Ten thanh pho</text>
     <text name="MoTa">Mo ta</text>
+    <text name="ZipCode">Ma ZipCode</text>
     <text name="ThanhPhosHeaderInfo">Thanh phos header info</text>
     <text name="CreateNewThanhPho">Create new thanh pho</text>
     <text name="EditThanhPho">Edit thanh pho</text>
