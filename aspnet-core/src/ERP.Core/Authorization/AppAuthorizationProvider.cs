@@ -30,6 +30,11 @@ namespace ERP.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var nhanSus = pages.CreateChildPermission(AppPermissions.Pages_NhanSus, L("NhanSus"));
+            nhanSus.CreateChildPermission(AppPermissions.Pages_NhanSus_Create, L("CreateNewNhanSu"));
+            nhanSus.CreateChildPermission(AppPermissions.Pages_NhanSus_Edit, L("EditNhanSu"));
+            nhanSus.CreateChildPermission(AppPermissions.Pages_NhanSus_Delete, L("DeleteNhanSu"));
+
             var thanhPhos = pages.CreateChildPermission(AppPermissions.Pages_ThanhPhos, L("ThanhPhos"));
             thanhPhos.CreateChildPermission(AppPermissions.Pages_ThanhPhos_Create, L("CreateNewThanhPho"));
             thanhPhos.CreateChildPermission(AppPermissions.Pages_ThanhPhos_Edit, L("EditThanhPho"));

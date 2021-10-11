@@ -12,6 +12,6 @@ namespace ERP.ThanhPhos.Dtos
         public string TenTPFilter { get; set; }
 
         public string MoTaFilter { get; set; }
-
+        public string ZipCodeFilter { get; set; }
     }
 }

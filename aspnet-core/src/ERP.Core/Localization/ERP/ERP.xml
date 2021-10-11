@@ -1,14 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>
-    <text name="ThanhPhos">Thanh phos</text>
+  <texts>    <text name="NhanSus">Danh sach nhan su</text>
+    <text name="NhanSu">Nhan su</text>
+    <text name="ERP.NhanSus.NhanSu">NhanSu</text>
+    <text name="MaNhanSu">Ma nhan su</text>
+    <text name="TenNhanSu">Ten nhan su</text>
+    <text name="PhongBan">Phong ban</text>
+    <text name="ThamNien">Tham nien</text>
+    <text name="QueQuan">Que quan</text>
+    <text name="Tuoi">Tuoi</text>
+    <text name="NhanSusHeaderInfo">Thong tin ve nhan su</text>
+    <text name="CreateNewNhanSu">Create new nhan su</text>
+    <text name="EditNhanSu">Edit nhan su</text>
+    <text name="DeleteNhanSu">Delete nhan su</text>
+
+    <text name="ThanhPhos">Danh sach thanh pho</text>
     <text name="ThanhPho">Thanh pho</text>
     <text name="ERP.ThanhPhos.ThanhPho">ThanhPho</text>
     <text name="MaTP">Ma thanh pho</text>
     <text name="TenTP">Ten thanh pho</text>
     <text name="MoTa">Mo ta</text>
     <text name="ZipCode">Ma ZipCode</text>
-    <text name="ThanhPhosHeaderInfo">Thanh phos header info</text>
+    <text name="ThanhPhosHeaderInfo">Thong tin ve thanh pho</text>
     <text name="CreateNewThanhPho">Create new thanh pho</text>
     <text name="EditThanhPho">Edit thanh pho</text>
     <text name="DeleteThanhPho">Delete thanh pho</text>

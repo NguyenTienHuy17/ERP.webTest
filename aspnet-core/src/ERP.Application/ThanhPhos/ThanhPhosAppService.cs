@@ -148,10 +148,11 @@ namespace ERP.ThanhPhos
         {
 
             var filteredThanhPhos = _thanhPhoRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.MaTP.Contains(input.Filter) || e.TenTP.Contains(input.Filter) || e.MoTa.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.MaTP.Contains(input.Filter) || e.TenTP.Contains(input.Filter) || e.MoTa.Contains(input.Filter) || e.ZipCode.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.MaTPFilter), e => e.MaTP == input.MaTPFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TenTPFilter), e => e.TenTP == input.TenTPFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.MoTaFilter), e => e.MoTa == input.MoTaFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.MoTaFilter), e => e.MoTa == input.MoTaFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.ZipCodeFilter), e => e.ZipCode == input.ZipCodeFilter);
 
             var query = (from o in filteredThanhPhos
                          select new GetThanhPhoForViewDto()
@@ -161,6 +162,7 @@ namespace ERP.ThanhPhos
                                  MaTP = o.MaTP,
                                  TenTP = o.TenTP,
                                  MoTa = o.MoTa,
+                                 ZipCode = o.ZipCode,
                                  Id = o.Id
                              }
                          });

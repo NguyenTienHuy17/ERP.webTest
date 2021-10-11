@@ -23,6 +23,8 @@ export class AppNavigationService {
             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
            
             new AppMenuItem('ThanhPhos', 'Pages.ThanhPhos', 'flaticon-more', '/app/main/thanhPhos/thanhPhos'),
+            
+            new AppMenuItem('NhanSus', 'Pages.NhanSus', 'flaticon-more', '/app/main/nhanSus/nhanSus'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('Roles', 'Pages.Administration.Roles', 'flaticon-suitcase', '/app/admin/roles'),

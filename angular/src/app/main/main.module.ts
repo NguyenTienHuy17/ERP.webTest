@@ -2,6 +2,10 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
+import { NhanSusComponent } from './nhanSus/nhanSus/nhanSus.component';
+import { ViewNhanSuModalComponent } from './nhanSus/nhanSus/view-nhanSu-modal.component';
+import { CreateOrEditNhanSuModalComponent } from './nhanSus/nhanSus/create-or-edit-nhanSu-modal.component';
+
 import { ThanhPhosComponent } from './thanhPhos/thanhPhos/thanhPhos.component';
 import { ViewThanhPhoModalComponent } from './thanhPhos/thanhPhos/view-thanhPho-modal.component';
 import { CreateOrEditThanhPhoModalComponent } from './thanhPhos/thanhPhos/create-or-edit-thanhPho-modal.component';
@@ -46,6 +50,10 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         PopoverModule.forRoot()
     ],
     declarations: [
+		NhanSusComponent,
+
+		ViewNhanSuModalComponent,
+		CreateOrEditNhanSuModalComponent,
 		ThanhPhosComponent,
 
 		ViewThanhPhoModalComponent,

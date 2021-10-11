@@ -3703,6 +3703,393 @@ export class LanguageServiceProxy {
 }
 
 @Injectable()
+export class NhanSusServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param maNhanSuFilter (optional) 
+     * @param tenNhanSuFilter (optional) 
+     * @param phongBanFilter (optional) 
+     * @param maxThamNienFilter (optional) 
+     * @param minThamNienFilter (optional) 
+     * @param maxTuoiFilter (optional) 
+     * @param minTuoiFilter (optional) 
+     * @param queQuanFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | null | undefined, maNhanSuFilter: string | null | undefined, tenNhanSuFilter: string | null | undefined, phongBanFilter: string | null | undefined, maxThamNienFilter: number | null | undefined, minThamNienFilter: number | null | undefined, maxTuoiFilter: number | null | undefined, minTuoiFilter: number | null | undefined, queQuanFilter: string | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetNhanSuForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/NhanSus/GetAll?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (maNhanSuFilter !== undefined)
+            url_ += "MaNhanSuFilter=" + encodeURIComponent("" + maNhanSuFilter) + "&"; 
+        if (tenNhanSuFilter !== undefined)
+            url_ += "TenNhanSuFilter=" + encodeURIComponent("" + tenNhanSuFilter) + "&"; 
+        if (phongBanFilter !== undefined)
+            url_ += "PhongBanFilter=" + encodeURIComponent("" + phongBanFilter) + "&"; 
+        if (maxThamNienFilter !== undefined)
+            url_ += "MaxThamNienFilter=" + encodeURIComponent("" + maxThamNienFilter) + "&"; 
+        if (minThamNienFilter !== undefined)
+            url_ += "MinThamNienFilter=" + encodeURIComponent("" + minThamNienFilter) + "&"; 
+        if (maxTuoiFilter !== undefined)
+            url_ += "MaxTuoiFilter=" + encodeURIComponent("" + maxTuoiFilter) + "&"; 
+        if (minTuoiFilter !== undefined)
+            url_ += "MinTuoiFilter=" + encodeURIComponent("" + minTuoiFilter) + "&"; 
+        if (queQuanFilter !== undefined)
+            url_ += "QueQuanFilter=" + encodeURIComponent("" + queQuanFilter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetNhanSuForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetNhanSuForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetNhanSuForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfGetNhanSuForViewDto.fromJS(resultData200) : new PagedResultDtoOfGetNhanSuForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetNhanSuForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getNhanSuForView(id: number | null | undefined): Observable<GetNhanSuForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/NhanSus/GetNhanSuForView?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetNhanSuForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetNhanSuForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetNhanSuForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetNhanSuForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetNhanSuForView(response: HttpResponseBase): Observable<GetNhanSuForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetNhanSuForViewDto.fromJS(resultData200) : new GetNhanSuForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetNhanSuForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getNhanSuForEdit(id: number | null | undefined): Observable<GetNhanSuForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/NhanSus/GetNhanSuForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetNhanSuForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetNhanSuForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetNhanSuForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetNhanSuForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetNhanSuForEdit(response: HttpResponseBase): Observable<GetNhanSuForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetNhanSuForEditOutput.fromJS(resultData200) : new GetNhanSuForEditOutput();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetNhanSuForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param input (optional) 
+     * @return Success
+     */
+    createOrEdit(input: CreateOrEditNhanSuDto | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/NhanSus/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/NhanSus/Delete?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param maNhanSuFilter (optional) 
+     * @param tenNhanSuFilter (optional) 
+     * @param phongBanFilter (optional) 
+     * @param maxThamNienFilter (optional) 
+     * @param minThamNienFilter (optional) 
+     * @param maxTuoiFilter (optional) 
+     * @param minTuoiFilter (optional) 
+     * @param queQuanFilter (optional) 
+     * @return Success
+     */
+    getNhanSusToExcel(filter: string | null | undefined, maNhanSuFilter: string | null | undefined, tenNhanSuFilter: string | null | undefined, phongBanFilter: string | null | undefined, maxThamNienFilter: number | null | undefined, minThamNienFilter: number | null | undefined, maxTuoiFilter: number | null | undefined, minTuoiFilter: number | null | undefined, queQuanFilter: string | null | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/NhanSus/GetNhanSusToExcel?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (maNhanSuFilter !== undefined)
+            url_ += "MaNhanSuFilter=" + encodeURIComponent("" + maNhanSuFilter) + "&"; 
+        if (tenNhanSuFilter !== undefined)
+            url_ += "TenNhanSuFilter=" + encodeURIComponent("" + tenNhanSuFilter) + "&"; 
+        if (phongBanFilter !== undefined)
+            url_ += "PhongBanFilter=" + encodeURIComponent("" + phongBanFilter) + "&"; 
+        if (maxThamNienFilter !== undefined)
+            url_ += "MaxThamNienFilter=" + encodeURIComponent("" + maxThamNienFilter) + "&"; 
+        if (minThamNienFilter !== undefined)
+            url_ += "MinThamNienFilter=" + encodeURIComponent("" + minThamNienFilter) + "&"; 
+        if (maxTuoiFilter !== undefined)
+            url_ += "MaxTuoiFilter=" + encodeURIComponent("" + maxTuoiFilter) + "&"; 
+        if (minTuoiFilter !== undefined)
+            url_ += "MinTuoiFilter=" + encodeURIComponent("" + minTuoiFilter) + "&"; 
+        if (queQuanFilter !== undefined)
+            url_ += "QueQuanFilter=" + encodeURIComponent("" + queQuanFilter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetNhanSusToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetNhanSusToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetNhanSusToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? FileDto.fromJS(resultData200) : new FileDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class NotificationServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -8557,9 +8944,10 @@ export class ThanhPhosServiceProxy {
      * @param maTPFilter (optional) 
      * @param tenTPFilter (optional) 
      * @param moTaFilter (optional) 
+     * @param zipCodeFilter (optional) 
      * @return Success
      */
-    getThanhPhosToExcel(filter: string | null | undefined, maTPFilter: string | null | undefined, tenTPFilter: string | null | undefined, moTaFilter: string | null | undefined): Observable<FileDto> {
+    getThanhPhosToExcel(filter: string | null | undefined, maTPFilter: string | null | undefined, tenTPFilter: string | null | undefined, moTaFilter: string | null | undefined, zipCodeFilter: string | null | undefined): Observable<FileDto> {
         let url_ = this.baseUrl + "/api/services/app/ThanhPhos/GetThanhPhosToExcel?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
@@ -8569,6 +8957,8 @@ export class ThanhPhosServiceProxy {
             url_ += "TenTPFilter=" + encodeURIComponent("" + tenTPFilter) + "&"; 
         if (moTaFilter !== undefined)
             url_ += "MoTaFilter=" + encodeURIComponent("" + moTaFilter) + "&"; 
+        if (zipCodeFilter !== undefined)
+            url_ += "ZipCodeFilter=" + encodeURIComponent("" + zipCodeFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -14795,6 +15185,246 @@ export interface IUpdateLanguageTextInput {
     sourceName: string;
     key: string;
     value: string;
+}
+
+export class PagedResultDtoOfGetNhanSuForViewDto implements IPagedResultDtoOfGetNhanSuForViewDto {
+    totalCount!: number | undefined;
+    items!: GetNhanSuForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetNhanSuForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetNhanSuForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetNhanSuForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetNhanSuForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetNhanSuForViewDto {
+    totalCount: number | undefined;
+    items: GetNhanSuForViewDto[] | undefined;
+}
+
+export class GetNhanSuForViewDto implements IGetNhanSuForViewDto {
+    nhanSu!: NhanSuDto | undefined;
+
+    constructor(data?: IGetNhanSuForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nhanSu = data["nhanSu"] ? NhanSuDto.fromJS(data["nhanSu"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetNhanSuForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetNhanSuForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nhanSu"] = this.nhanSu ? this.nhanSu.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetNhanSuForViewDto {
+    nhanSu: NhanSuDto | undefined;
+}
+
+export class NhanSuDto implements INhanSuDto {
+    maNhanSu!: string | undefined;
+    tenNhanSu!: string | undefined;
+    phongBan!: string | undefined;
+    thamNien!: number | undefined;
+    tuoi!: number | undefined;
+    queQuan!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: INhanSuDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.maNhanSu = data["maNhanSu"];
+            this.tenNhanSu = data["tenNhanSu"];
+            this.phongBan = data["phongBan"];
+            this.thamNien = data["thamNien"];
+            this.tuoi = data["tuoi"];
+            this.queQuan = data["queQuan"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): NhanSuDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new NhanSuDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["maNhanSu"] = this.maNhanSu;
+        data["tenNhanSu"] = this.tenNhanSu;
+        data["phongBan"] = this.phongBan;
+        data["thamNien"] = this.thamNien;
+        data["tuoi"] = this.tuoi;
+        data["queQuan"] = this.queQuan;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface INhanSuDto {
+    maNhanSu: string | undefined;
+    tenNhanSu: string | undefined;
+    phongBan: string | undefined;
+    thamNien: number | undefined;
+    tuoi: number | undefined;
+    queQuan: string | undefined;
+    id: number | undefined;
+}
+
+export class GetNhanSuForEditOutput implements IGetNhanSuForEditOutput {
+    nhanSu!: CreateOrEditNhanSuDto | undefined;
+
+    constructor(data?: IGetNhanSuForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nhanSu = data["nhanSu"] ? CreateOrEditNhanSuDto.fromJS(data["nhanSu"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetNhanSuForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetNhanSuForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nhanSu"] = this.nhanSu ? this.nhanSu.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetNhanSuForEditOutput {
+    nhanSu: CreateOrEditNhanSuDto | undefined;
+}
+
+export class CreateOrEditNhanSuDto implements ICreateOrEditNhanSuDto {
+    maNhanSu!: string;
+    tenNhanSu!: string;
+    phongBan!: string;
+    thamNien!: number | undefined;
+    tuoi!: number | undefined;
+    queQuan!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditNhanSuDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.maNhanSu = data["maNhanSu"];
+            this.tenNhanSu = data["tenNhanSu"];
+            this.phongBan = data["phongBan"];
+            this.thamNien = data["thamNien"];
+            this.tuoi = data["tuoi"];
+            this.queQuan = data["queQuan"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditNhanSuDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditNhanSuDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["maNhanSu"] = this.maNhanSu;
+        data["tenNhanSu"] = this.tenNhanSu;
+        data["phongBan"] = this.phongBan;
+        data["thamNien"] = this.thamNien;
+        data["tuoi"] = this.tuoi;
+        data["queQuan"] = this.queQuan;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditNhanSuDto {
+    maNhanSu: string;
+    tenNhanSu: string;
+    phongBan: string;
+    thamNien: number | undefined;
+    tuoi: number | undefined;
+    queQuan: string | undefined;
+    id: number | undefined;
 }
 
 export enum UserNotificationState {

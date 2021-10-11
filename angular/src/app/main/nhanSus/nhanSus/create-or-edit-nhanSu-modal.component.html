@@ -1,0 +1,64 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #nhanSuForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="nhanSu.id">{{l("EditNhanSu")}}</span>
+                        <span *ngIf="!nhanSu.id">{{l("CreateNewNhanSu")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+
+								<div class="form-group">
+									<label for="NhanSu_MaNhanSu">{{l("MaNhanSu")}} *</label>
+									<input type="text" #NhanSu_MaNhanSu="ngModel" id="NhanSu_MaNhanSu" class="form-control" [(ngModel)]="nhanSu.maNhanSu" name="MaNhanSu"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="NhanSu_MaNhanSu"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="NhanSu_TenNhanSu">{{l("TenNhanSu")}} *</label>
+									<input type="text" #NhanSu_TenNhanSu="ngModel" id="NhanSu_TenNhanSu" class="form-control" [(ngModel)]="nhanSu.tenNhanSu" name="TenNhanSu"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="NhanSu_TenNhanSu"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="NhanSu_PhongBan">{{l("PhongBan")}} *</label>
+									<input type="text" #NhanSu_PhongBan="ngModel" id="NhanSu_PhongBan" class="form-control" [(ngModel)]="nhanSu.phongBan" name="PhongBan"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="NhanSu_PhongBan"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="NhanSu_ThamNien">{{l("ThamNien")}}</label>
+									<input type="number" #NhanSu_ThamNien="ngModel" id="NhanSu_ThamNien" class="form-control" [(ngModel)]="nhanSu.thamNien" name="ThamNien"  min="0"  max="100" />
+									<validation-messages [formCtrl]="NhanSu_ThamNien"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="NhanSu_Tuoi">{{l("Tuoi")}}</label>
+									<input type="number" #NhanSu_Tuoi="ngModel" id="NhanSu_Tuoi" class="form-control" [(ngModel)]="nhanSu.tuoi" name="Tuoi"  min="0"  max="100" />
+									<validation-messages [formCtrl]="NhanSu_Tuoi"></validation-messages>
+								</div>
+
+								<div class="form-group">
+									<label for="NhanSu_QueQuan">{{l("QueQuan")}}</label>
+									<input type="text" #NhanSu_QueQuan="ngModel" id="NhanSu_QueQuan" class="form-control" [(ngModel)]="nhanSu.queQuan" name="QueQuan"  minlength="0"  maxlength="255"/>
+									<validation-messages [formCtrl]="NhanSu_QueQuan"></validation-messages>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!nhanSuForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

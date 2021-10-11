@@ -1,13 +1,13 @@
 ﻿import {AppConsts} from '@shared/AppConsts';
 import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
-import { ThanhPhosServiceProxy, ThanhPhoDto  } from '@shared/service-proxies/service-proxies';
+import { NhanSusServiceProxy, NhanSuDto  } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from '@abp/notify/notify.service';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
-import { CreateOrEditThanhPhoModalComponent } from './create-or-edit-thanhPho-modal.component';
+import { CreateOrEditNhanSuModalComponent } from './create-or-edit-nhanSu-modal.component';
 
-import { ViewThanhPhoModalComponent } from './view-thanhPho-modal.component';
+import { ViewNhanSuModalComponent } from './view-nhanSu-modal.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/components/table/table';
 import { Paginator } from 'primeng/components/paginator/paginator';
@@ -18,25 +18,33 @@ import * as moment from 'moment';
 
 
 @Component({
-    templateUrl: './thanhPhos.component.html',
+    templateUrl: './nhanSus.component.html',
     encapsulation: ViewEncapsulation.None,
     animations: [appModuleAnimation()]
 })
-export class ThanhPhosComponent extends AppComponentBase {
+export class NhanSusComponent extends AppComponentBase {
     
     
-    @ViewChild('createOrEditThanhPhoModal', { static: true }) createOrEditThanhPhoModal: CreateOrEditThanhPhoModalComponent;
-    @ViewChild('viewThanhPhoModalComponent', { static: true }) viewThanhPhoModal: ViewThanhPhoModalComponent;   
+    @ViewChild('createOrEditNhanSuModal', { static: true }) createOrEditNhanSuModal: CreateOrEditNhanSuModalComponent;
+    @ViewChild('viewNhanSuModalComponent', { static: true }) viewNhanSuModal: ViewNhanSuModalComponent;   
     
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
     advancedFiltersAreShown = false;
     filterText = '';
-    maTPFilter = '';
-    tenTPFilter = '';
-    moTaFilter = '';
-    zipCodeFilter = '';
+    maNhanSuFilter = '';
+    tenNhanSuFilter = '';
+    phongBanFilter = '';
+    queQuanFilter = '';
+    maxThamNienFilter : number;
+		maxThamNienFilterEmpty : number;
+		minThamNienFilter : number;
+		minThamNienFilterEmpty : number;
+    maxTuoiFilter : number;
+		maxTuoiFilterEmpty : number;
+		minTuoiFilter : number;
+		minTuoiFilterEmpty : number;
 
 
 
@@ -45,7 +53,7 @@ export class ThanhPhosComponent extends AppComponentBase {
 
     constructor(
         injector: Injector,
-        private _thanhPhosServiceProxy: ThanhPhosServiceProxy,
+        private _nhanSusServiceProxy: NhanSusServiceProxy,
         private _notifyService: NotifyService,
         private _tokenAuth: TokenAuthServiceProxy,
         private _activatedRoute: ActivatedRoute,
@@ -54,7 +62,7 @@ export class ThanhPhosComponent extends AppComponentBase {
         super(injector);
     }
 
-    getThanhPhos(event?: LazyLoadEvent) {
+    getNhanSus(event?: LazyLoadEvent) {
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
             return;
@@ -62,12 +70,16 @@ export class ThanhPhosComponent extends AppComponentBase {
 
         this.primengTableHelper.showLoadingIndicator();
 
-        this._thanhPhosServiceProxy.getAll(
+        this._nhanSusServiceProxy.getAll(
             this.filterText,
-            this.maTPFilter,
-            this.tenTPFilter,
-            this.moTaFilter,
-            this.zipCodeFilter,
+            this.maNhanSuFilter,
+            this.tenNhanSuFilter,
+            this.phongBanFilter,
+            this.maxThamNienFilter == null ? this.maxThamNienFilterEmpty: this.maxThamNienFilter,
+            this.minThamNienFilter == null ? this.minThamNienFilterEmpty: this.minThamNienFilter,
+            this.maxTuoiFilter == null ? this.maxTuoiFilterEmpty: this.maxTuoiFilter,
+            this.minTuoiFilter == null ? this.minTuoiFilterEmpty: this.minTuoiFilter,
+            this.queQuanFilter,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getSkipCount(this.paginator, event),
             this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -82,18 +94,18 @@ export class ThanhPhosComponent extends AppComponentBase {
         this.paginator.changePage(this.paginator.getPage());
     }
 
-    createThanhPho(): void {
-        this.createOrEditThanhPhoModal.show();        
+    createNhanSu(): void {
+        this.createOrEditNhanSuModal.show();        
     }
 
 
-    deleteThanhPho(thanhPho: ThanhPhoDto): void {
+    deleteNhanSu(nhanSu: NhanSuDto): void {
         this.message.confirm(
             '',
             this.l('AreYouSure'),
             (isConfirmed) => {
                 if (isConfirmed) {
-                    this._thanhPhosServiceProxy.delete(thanhPho.id)
+                    this._nhanSusServiceProxy.delete(nhanSu.id)
                         .subscribe(() => {
                             this.reloadPage();
                             this.notify.success(this.l('SuccessfullyDeleted'));
@@ -104,12 +116,16 @@ export class ThanhPhosComponent extends AppComponentBase {
     }
 
     exportToExcel(): void {
-        this._thanhPhosServiceProxy.getThanhPhosToExcel(
+        this._nhanSusServiceProxy.getNhanSusToExcel(
         this.filterText,
-            this.maTPFilter,
-            this.tenTPFilter,
-            this.moTaFilter,
-            this.zipCodeFilter,
+            this.maNhanSuFilter,
+            this.tenNhanSuFilter,
+            this.phongBanFilter,
+            this.maxThamNienFilter == null ? this.maxThamNienFilterEmpty: this.maxThamNienFilter,
+            this.minThamNienFilter == null ? this.minThamNienFilterEmpty: this.minThamNienFilter,
+            this.maxTuoiFilter == null ? this.maxTuoiFilterEmpty: this.maxTuoiFilter,
+            this.minTuoiFilter == null ? this.minTuoiFilterEmpty: this.minTuoiFilter,
+            this.queQuanFilter,
         )
         .subscribe(result => {
             this._fileDownloadService.downloadTempFile(result);

@@ -38,14 +38,17 @@ namespace ERP.ThanhPhos.Exporting
                         sheet,
                         L("MaTP"),
                         L("TenTP"),
-                        L("MoTa")
+                        L("MoTa"),
+                        L("ZipCode")
+
                         );
 
                     AddObjects(
                         sheet, 2, thanhPhos,
                         _ => _.ThanhPho.MaTP,
                         _ => _.ThanhPho.TenTP,
-                        _ => _.ThanhPho.MoTa
+                        _ => _.ThanhPho.MoTa,
+                        _ => _.ThanhPho.ZipCode
                         );
 
                 });

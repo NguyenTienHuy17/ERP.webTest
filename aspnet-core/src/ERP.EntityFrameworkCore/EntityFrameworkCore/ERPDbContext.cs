@@ -1,4 +1,5 @@
-﻿using ERP.ThanhPhos;
+﻿using ERP.NhanSus;
+using ERP.ThanhPhos;
 using Abp.IdentityServer4;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ namespace ERP.EntityFrameworkCore
 {
     public class ERPDbContext : AbpZeroDbContext<Tenant, Role, User, ERPDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<NhanSu> NhanSus { get; set; }
+
         public virtual DbSet<ThanhPho> ThanhPhos { get; set; }
 
         /* Define an IDbSet for each entity of the application */
@@ -44,10 +47,14 @@ namespace ERP.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ThanhPho>(t =>
+            modelBuilder.Entity<NhanSu>(n =>
             {
-                t.HasIndex(e => new { e.TenantId });
+                n.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<ThanhPho>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<BinaryObject>(b =>
                        {
                            b.HasIndex(e => new { e.TenantId });
