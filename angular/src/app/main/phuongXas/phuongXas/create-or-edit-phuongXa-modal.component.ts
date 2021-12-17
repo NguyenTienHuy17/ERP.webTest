@@ -1,7 +1,8 @@
 ﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
-import { NhanSusServiceProxy, CreateOrEditNhanSuDto, PhuongXaThanhPhoLookupTableDto } from '@shared/service-proxies/service-proxies';
+import { PhuongXasServiceProxy, CreateOrEditPhuongXaDto ,PhuongXaThanhPhoLookupTableDto
+					} from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as moment from 'moment';
 
@@ -9,10 +10,10 @@ import * as moment from 'moment';
 
 
 @Component({
-    selector: 'createOrEditNhanSuModal',
-    templateUrl: './create-or-edit-nhanSu-modal.component.html'
+    selector: 'createOrEditPhuongXaModal',
+    templateUrl: './create-or-edit-phuongXa-modal.component.html'
 })
-export class CreateOrEditNhanSuModalComponent extends AppComponentBase implements OnInit{
+export class CreateOrEditPhuongXaModalComponent extends AppComponentBase implements OnInit{
    
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
 
@@ -21,44 +22,46 @@ export class CreateOrEditNhanSuModalComponent extends AppComponentBase implement
     active = false;
     saving = false;
 
-    nhanSu: CreateOrEditNhanSuDto = new CreateOrEditNhanSuDto();
+    phuongXa: CreateOrEditPhuongXaDto = new CreateOrEditPhuongXaDto();
 
     thanhPhoMaTP = '';
 
 	allThanhPhos: PhuongXaThanhPhoLookupTableDto[];
-
+					
 
     constructor(
         injector: Injector,
-        private _nhanSusServiceProxy: NhanSusServiceProxy
+        private _phuongXasServiceProxy: PhuongXasServiceProxy
     ) {
         super(injector);
     }
     
-    show(nhanSuId?: number): void {
+    show(phuongXaId?: number): void {
     
 
-        if (!nhanSuId) {
-            this.nhanSu = new CreateOrEditNhanSuDto();
-            this.nhanSu.id = nhanSuId;
+        if (!phuongXaId) {
+            this.phuongXa = new CreateOrEditPhuongXaDto();
+            this.phuongXa.id = phuongXaId;
             this.thanhPhoMaTP = '';
 
 
             this.active = true;
             this.modal.show();
         } else {
-            this._nhanSusServiceProxy.getNhanSuForEdit(nhanSuId).subscribe(result => {
-                this.nhanSu = result.nhanSu;
+            this._phuongXasServiceProxy.getPhuongXaForEdit(phuongXaId).subscribe(result => {
+                this.phuongXa = result.phuongXa;
 
                 this.thanhPhoMaTP = result.thanhPhoMaTP;
+
 
                 this.active = true;
                 this.modal.show();
             });
         }
-        this._nhanSusServiceProxy.getAllThanhPhoForTableDropdown().subscribe(result => {						
-            this.allThanhPhos = result;
-        });
+        this._phuongXasServiceProxy.getAllThanhPhoForTableDropdown().subscribe(result => {						
+						this.allThanhPhos = result;
+					});
+					
         
     }
 
@@ -67,7 +70,7 @@ export class CreateOrEditNhanSuModalComponent extends AppComponentBase implement
             
 			
 			
-            this._nhanSusServiceProxy.createOrEdit(this.nhanSu)
+            this._phuongXasServiceProxy.createOrEdit(this.phuongXa)
              .pipe(finalize(() => { this.saving = false;}))
              .subscribe(() => {
                 this.notify.info(this.l('SavedSuccessfully'));

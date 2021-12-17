@@ -2,11 +2,13 @@
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
 
-namespace ERP.NhanSus.Dtos
+namespace ERP.PhuongXas.Dtos
 {
-    public class GetNhanSuForEditOutput
+    public class GetPhuongXaForEditOutput
     {
-        public CreateOrEditNhanSuDto NhanSu { get; set; }
+        public CreateOrEditPhuongXaDto PhuongXa { get; set; }
+
         public string ThanhPhoMaTP { get; set; }
+
     }
 }

@@ -4,14 +4,16 @@ using ERP.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ERP.Migrations
 {
     [DbContext(typeof(ERPDbContext))]
-    partial class ERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211011050106_UpdateTableNhanSuAddForeignKey")]
+    partial class UpdateTableNhanSuAddForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1331,6 +1333,8 @@ namespace ERP.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
+                    b.Property<string>("QueQuan");
+
                     b.Property<string>("TenNhanSu")
                         .IsRequired()
                         .HasMaxLength(255);
@@ -1350,53 +1354,6 @@ namespace ERP.Migrations
                     b.HasIndex("ThanhPhoId");
 
                     b.ToTable("NhanSus");
-                });
-
-            modelBuilder.Entity("ERP.PhuongXas.PhuongXa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ChuTichPhuong")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<long?>("DeleterUserId");
-
-                    b.Property<DateTime?>("DeletionTime");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
-
-                    b.Property<string>("MaPhuong")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<int>("SoDan");
-
-                    b.Property<string>("TenPhuong")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<int?>("TenantId");
-
-                    b.Property<int>("ThanhPhoId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId");
-
-                    b.HasIndex("ThanhPhoId");
-
-                    b.ToTable("PhuongXas");
                 });
 
             modelBuilder.Entity("ERP.Storage.BinaryObject", b =>
@@ -1664,16 +1621,8 @@ namespace ERP.Migrations
 
             modelBuilder.Entity("ERP.NhanSus.NhanSu", b =>
                 {
-                    b.HasOne("ERP.ThanhPhos.ThanhPho", "ThanhPhoFk")
+                    b.HasOne("ERP.ThanhPhos.ThanhPho", "ThanhPho")
                         .WithMany("NhanSus")
-                        .HasForeignKey("ThanhPhoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ERP.PhuongXas.PhuongXa", b =>
-                {
-                    b.HasOne("ERP.ThanhPhos.ThanhPho", "ThanhPhoFk")
-                        .WithMany()
                         .HasForeignKey("ThanhPhoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

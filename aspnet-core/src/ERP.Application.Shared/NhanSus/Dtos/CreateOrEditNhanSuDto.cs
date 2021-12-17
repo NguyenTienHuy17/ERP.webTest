@@ -25,6 +25,6 @@ namespace ERP.NhanSus.Dtos
         [Range(NhanSuConsts.MinTuoiValue, NhanSuConsts.MaxTuoiValue)]
         public int Tuoi { get; set; }
         public string QueQuan { get; set; }
-
+        public object ThanhPhoId { get; set; }
     }
 }

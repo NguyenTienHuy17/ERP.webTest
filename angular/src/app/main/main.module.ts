@@ -2,6 +2,10 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
+import { PhuongXasComponent } from './phuongXas/phuongXas/phuongXas.component';
+import { ViewPhuongXaModalComponent } from './phuongXas/phuongXas/view-phuongXa-modal.component';
+import { CreateOrEditPhuongXaModalComponent } from './phuongXas/phuongXas/create-or-edit-phuongXa-modal.component';
+
 import { NhanSusComponent } from './nhanSus/nhanSus/nhanSus.component';
 import { ViewNhanSuModalComponent } from './nhanSus/nhanSus/view-nhanSu-modal.component';
 import { CreateOrEditNhanSuModalComponent } from './nhanSus/nhanSus/create-or-edit-nhanSu-modal.component';
@@ -50,6 +54,10 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         PopoverModule.forRoot()
     ],
     declarations: [
+		PhuongXasComponent,
+
+		ViewPhuongXaModalComponent,
+		CreateOrEditPhuongXaModalComponent,
 		NhanSusComponent,
 
 		ViewNhanSuModalComponent,

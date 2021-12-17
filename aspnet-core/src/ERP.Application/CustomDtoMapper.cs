@@ -1,4 +1,6 @@
-﻿using ERP.NhanSus.Dtos;
+﻿using ERP.PhuongXas.Dtos;
+using ERP.PhuongXas;
+using ERP.NhanSus.Dtos;
 using ERP.NhanSus;
 using ERP.ThanhPhos.Dtos;
 using ERP.ThanhPhos;
@@ -45,6 +47,8 @@ namespace ERP
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditPhuongXaDto, PhuongXa>().ReverseMap();
+            configuration.CreateMap<PhuongXaDto, PhuongXa>().ReverseMap();
             configuration.CreateMap<CreateOrEditNhanSuDto, NhanSu>().ReverseMap();
             configuration.CreateMap<NhanSuDto, NhanSu>().ReverseMap();
             configuration.CreateMap<CreateOrEditThanhPhoDto, ThanhPho>().ReverseMap();

@@ -1,13 +1,13 @@
 ﻿import {AppConsts} from '@shared/AppConsts';
 import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
-import { NhanSusServiceProxy, NhanSuDto  } from '@shared/service-proxies/service-proxies';
+import { PhuongXasServiceProxy, PhuongXaDto  } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from '@abp/notify/notify.service';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
-import { CreateOrEditNhanSuModalComponent } from './create-or-edit-nhanSu-modal.component';
+import { CreateOrEditPhuongXaModalComponent } from './create-or-edit-phuongXa-modal.component';
 
-import { ViewNhanSuModalComponent } from './view-nhanSu-modal.component';
+import { ViewPhuongXaModalComponent } from './view-phuongXa-modal.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/components/table/table';
 import { Paginator } from 'primeng/components/paginator/paginator';
@@ -18,34 +18,29 @@ import * as moment from 'moment';
 
 
 @Component({
-    templateUrl: './nhanSus.component.html',
+    templateUrl: './phuongXas.component.html',
     encapsulation: ViewEncapsulation.None,
     animations: [appModuleAnimation()]
 })
-export class NhanSusComponent extends AppComponentBase {
+export class PhuongXasComponent extends AppComponentBase {
     
     
-    @ViewChild('createOrEditNhanSuModal', { static: true }) createOrEditNhanSuModal: CreateOrEditNhanSuModalComponent;
-    @ViewChild('viewNhanSuModalComponent', { static: true }) viewNhanSuModal: ViewNhanSuModalComponent;   
+    @ViewChild('createOrEditPhuongXaModal', { static: true }) createOrEditPhuongXaModal: CreateOrEditPhuongXaModalComponent;
+    @ViewChild('viewPhuongXaModalComponent', { static: true }) viewPhuongXaModal: ViewPhuongXaModalComponent;   
     
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
     advancedFiltersAreShown = false;
     filterText = '';
-    maNhanSuFilter = '';
-    tenNhanSuFilter = '';
-    phongBanFilter = '';
-    queQuanFilter = '';
-    maxThamNienFilter : number;
-		maxThamNienFilterEmpty : number;
-		minThamNienFilter : number;
-		minThamNienFilterEmpty : number;
-    maxTuoiFilter : number;
-		maxTuoiFilterEmpty : number;
-		minTuoiFilter : number;
-		minTuoiFilterEmpty : number;
-    thanhPhoMaTPFilter = '';
+    maPhuongFilter = '';
+    tenPhuongFilter = '';
+    maxSoDanFilter : number;
+		maxSoDanFilterEmpty : number;
+		minSoDanFilter : number;
+		minSoDanFilterEmpty : number;
+    chuTichPhuongFilter = '';
+        thanhPhoMaTPFilter = '';
 
 
 
@@ -54,7 +49,7 @@ export class NhanSusComponent extends AppComponentBase {
 
     constructor(
         injector: Injector,
-        private _nhanSusServiceProxy: NhanSusServiceProxy,
+        private _phuongXasServiceProxy: PhuongXasServiceProxy,
         private _notifyService: NotifyService,
         private _tokenAuth: TokenAuthServiceProxy,
         private _activatedRoute: ActivatedRoute,
@@ -63,7 +58,7 @@ export class NhanSusComponent extends AppComponentBase {
         super(injector);
     }
 
-    getNhanSus(event?: LazyLoadEvent) {
+    getPhuongXas(event?: LazyLoadEvent) {
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
             return;
@@ -71,15 +66,13 @@ export class NhanSusComponent extends AppComponentBase {
 
         this.primengTableHelper.showLoadingIndicator();
 
-        this._nhanSusServiceProxy.getAll(
+        this._phuongXasServiceProxy.getAll(
             this.filterText,
-            this.maNhanSuFilter,
-            this.tenNhanSuFilter,
-            this.phongBanFilter,
-            this.maxThamNienFilter == null ? this.maxThamNienFilterEmpty: this.maxThamNienFilter,
-            this.minThamNienFilter == null ? this.minThamNienFilterEmpty: this.minThamNienFilter,
-            this.maxTuoiFilter == null ? this.maxTuoiFilterEmpty: this.maxTuoiFilter,
-            this.minTuoiFilter == null ? this.minTuoiFilterEmpty: this.minTuoiFilter,
+            this.maPhuongFilter,
+            this.tenPhuongFilter,
+            this.maxSoDanFilter == null ? this.maxSoDanFilterEmpty: this.maxSoDanFilter,
+            this.minSoDanFilter == null ? this.minSoDanFilterEmpty: this.minSoDanFilter,
+            this.chuTichPhuongFilter,
             this.thanhPhoMaTPFilter,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getSkipCount(this.paginator, event),
@@ -95,18 +88,18 @@ export class NhanSusComponent extends AppComponentBase {
         this.paginator.changePage(this.paginator.getPage());
     }
 
-    createNhanSu(): void {
-        this.createOrEditNhanSuModal.show();        
+    createPhuongXa(): void {
+        this.createOrEditPhuongXaModal.show();        
     }
 
 
-    deleteNhanSu(nhanSu: NhanSuDto): void {
+    deletePhuongXa(phuongXa: PhuongXaDto): void {
         this.message.confirm(
             '',
             this.l('AreYouSure'),
             (isConfirmed) => {
                 if (isConfirmed) {
-                    this._nhanSusServiceProxy.delete(nhanSu.id)
+                    this._phuongXasServiceProxy.delete(phuongXa.id)
                         .subscribe(() => {
                             this.reloadPage();
                             this.notify.success(this.l('SuccessfullyDeleted'));
@@ -117,15 +110,13 @@ export class NhanSusComponent extends AppComponentBase {
     }
 
     exportToExcel(): void {
-        this._nhanSusServiceProxy.getNhanSusToExcel(
+        this._phuongXasServiceProxy.getPhuongXasToExcel(
         this.filterText,
-            this.maNhanSuFilter,
-            this.tenNhanSuFilter,
-            this.phongBanFilter,
-            this.maxThamNienFilter == null ? this.maxThamNienFilterEmpty: this.maxThamNienFilter,
-            this.minThamNienFilter == null ? this.minThamNienFilterEmpty: this.minThamNienFilter,
-            this.maxTuoiFilter == null ? this.maxTuoiFilterEmpty: this.maxTuoiFilter,
-            this.minTuoiFilter == null ? this.minTuoiFilterEmpty: this.minTuoiFilter,
+            this.maPhuongFilter,
+            this.tenPhuongFilter,
+            this.maxSoDanFilter == null ? this.maxSoDanFilterEmpty: this.maxSoDanFilter,
+            this.minSoDanFilter == null ? this.minSoDanFilterEmpty: this.minSoDanFilter,
+            this.chuTichPhuongFilter,
             this.thanhPhoMaTPFilter,
         )
         .subscribe(result => {

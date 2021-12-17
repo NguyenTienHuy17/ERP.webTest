@@ -18,6 +18,8 @@ namespace ERP.NhanSus.Dtos
 
         public int? MaxTuoiFilter { get; set; }
         public int? MinTuoiFilter { get; set; }
-        public string QueQuanFilter { get; set; }
+        public string ThanhPhoMaTPFilter { get; set; }
+
+
     }
 }

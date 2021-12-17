@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
+using System.Collections.Generic;
+using ERP.NhanSus;
 
 namespace ERP.ThanhPhos
 {
@@ -23,5 +25,6 @@ namespace ERP.ThanhPhos
         public virtual string MoTa { get; set; }
         public virtual string ZipCode { get; set; }
 
+        public ICollection<NhanSu> NhanSus { get; set; }
     }
 }

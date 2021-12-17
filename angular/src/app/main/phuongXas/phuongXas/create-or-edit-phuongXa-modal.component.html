@@ -1,0 +1,60 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #phuongXaForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="phuongXa.id">{{l("EditPhuongXa")}}</span>
+                        <span *ngIf="!phuongXa.id">{{l("CreateNewPhuongXa")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group m-form__group">
+						<label for="ThanhPhoMaTP">{{l("ThanhPho")}}</label>
+						<select name="phuongXa.thanhPhoId" [(ngModel)]="phuongXa.thanhPhoId" class="form-control" required>
+							<option value="">{{l("SelectAThanhPho")}}</option>
+							<option *ngFor="let item of allThanhPhos" value="{{item.id}}">{{item.displayName}}</option>
+						</select>
+					</div>
+					 
+
+								<div class="form-group">
+									<label for="PhuongXa_MaPhuong">{{l("MaPhuong")}} *</label>
+									<input type="text" #PhuongXa_MaPhuong="ngModel" id="PhuongXa_MaPhuong" class="form-control" [(ngModel)]="phuongXa.maPhuong" name="MaPhuong"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="PhuongXa_MaPhuong"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="PhuongXa_TenPhuong">{{l("TenPhuong")}} *</label>
+									<input type="text" #PhuongXa_TenPhuong="ngModel" id="PhuongXa_TenPhuong" class="form-control" [(ngModel)]="phuongXa.tenPhuong" name="TenPhuong"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="PhuongXa_TenPhuong"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="PhuongXa_SoDan">{{l("SoDan")}}</label>
+									<input type="number" #PhuongXa_SoDan="ngModel" id="PhuongXa_SoDan" class="form-control" [(ngModel)]="phuongXa.soDan" name="SoDan"   />
+									<validation-messages [formCtrl]="PhuongXa_SoDan"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="PhuongXa_ChuTichPhuong">{{l("ChuTichPhuong")}} *</label>
+									<input type="text" #PhuongXa_ChuTichPhuong="ngModel" id="PhuongXa_ChuTichPhuong" class="form-control" [(ngModel)]="phuongXa.chuTichPhuong" name="ChuTichPhuong"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="PhuongXa_ChuTichPhuong"></validation-messages>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!phuongXaForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

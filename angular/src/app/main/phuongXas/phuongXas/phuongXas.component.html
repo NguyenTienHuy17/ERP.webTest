@@ -6,18 +6,18 @@
                   
                     <div class="kt-subheader__main">
                         <h3 class="kt-subheader__title">
-                            <span>{{l("NhanSus")}}</span>
+                            <span>{{l("PhuongXas")}}</span>
                         </h3>
                         <span class="kt-subheader__separator kt-subheader__separator--v"></span>
                         <span class="kt-subheader__desc">
-                            {{l("NhanSusHeaderInfo")}}
+                            {{l("PhuongXasHeaderInfo")}}
                         </span>
                     </div>
                     <div class="kt-subheader__toolbar">
                         <div class="kt-subheader__wrapper">
             				<button (click)="exportToExcel()" class="btn btn-outline-success"><i class="fa fa-file-excel"></i> {{l("ExportToExcel")}}</button>
-                <button *ngIf="isGranted('Pages.NhanSus.Create')" (click)="createNhanSu()" 
-            			class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewNhanSu")}}</button>
+                <button *ngIf="isGranted('Pages.PhuongXas.Create')" (click)="createPhuongXa()" 
+            			class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewPhuongXa")}}</button>
                         </div>
                     </div>
                   
@@ -35,7 +35,7 @@
                                     <div class="input-group">
                                         <input [(ngModel)]="filterText" name="filterText" autoFocus class="form-control m-input" [placeholder]="l('SearchWithThreeDot')" type="text">
                                         <span class="input-group-btn">
-                                            <button (click)="getNhanSus()" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                            <button (click)="getPhuongXas()" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
                                         </span>
                                     </div>
                                 </div>
@@ -49,43 +49,34 @@
 
 							<div class="col-md-3">
 								<div class="form-group">
-									<label for="MaNhanSuFilter">{{l("MaNhanSu")}}</label>
-									<input type="text" class="form-control" id="MaNhanSuFilter" name="maNhanSuFilter" [(ngModel)]="maNhanSuFilter">
+									<label for="MaPhuongFilter">{{l("MaPhuong")}}</label>
+									<input type="text" class="form-control" id="MaPhuongFilter" name="maPhuongFilter" [(ngModel)]="maPhuongFilter">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label for="TenNhanSuFilter">{{l("TenNhanSu")}}</label>
-									<input type="text" class="form-control" id="TenNhanSuFilter" name="tenNhanSuFilter" [(ngModel)]="tenNhanSuFilter">
+									<label for="TenPhuongFilter">{{l("TenPhuong")}}</label>
+									<input type="text" class="form-control" id="TenPhuongFilter" name="tenPhuongFilter" [(ngModel)]="tenPhuongFilter">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+									<label for="MinSoDanFilter">{{l("MinMax")}} {{l("SoDan")}}</label>
+									<div class="input-group">
+                                        <input type="number" class="form-control" id="MinSoDanFilter" [(ngModel)]="minSoDanFilter" placeholder="{{l('MinValue')}}" name="minSoDanFilter" />
+                                        <input type="number" class="form-control" [(ngModel)]="maxSoDanFilter" placeholder="{{l('MaxValue')}}" name="maxSoDanFilter" />
+									</div>
+                                </div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ChuTichPhuongFilter">{{l("ChuTichPhuong")}}</label>
+									<input type="text" class="form-control" id="ChuTichPhuongFilter" name="chuTichPhuongFilter" [(ngModel)]="chuTichPhuongFilter">
 								</div>
                             </div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label for="PhongBanFilter">{{l("PhongBan")}}</label>
-									<input type="text" class="form-control" id="PhongBanFilter" name="phongBanFilter" [(ngModel)]="phongBanFilter">
-								</div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-									<label for="MinThamNienFilter">{{l("MinMax")}} {{l("ThamNien")}}</label>
-									<div class="input-group">
-                                        <input type="number" class="form-control" id="MinThamNienFilter" [(ngModel)]="minThamNienFilter" placeholder="{{l('MinValue')}}" name="minThamNienFilter" />
-                                        <input type="number" class="form-control" [(ngModel)]="maxThamNienFilter" placeholder="{{l('MaxValue')}}" name="maxThamNienFilter" />
-									</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-									<label for="MinTuoiFilter">{{l("MinMax")}} {{l("Tuoi")}}</label>
-									<div class="input-group">
-                                        <input type="number" class="form-control" id="MinTuoiFilter" [(ngModel)]="minTuoiFilter" placeholder="{{l('MinValue')}}" name="minTuoiFilter" />
-                                        <input type="number" class="form-control" [(ngModel)]="maxTuoiFilter" placeholder="{{l('MaxValue')}}" name="maxTuoiFilter" />
-									</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-								<div class="form-group">
-									<label for="ThanhPhoMaTPFilter">({{l("ThanhPho")}}) {{l("TenTP")}}</label>
+									<label for="ThanhPhoMaTPFilter">({{l("ThanhPho")}}) {{l("MaTP")}}</label>
 									<input type="text" class="form-control" id="ThanhPhoMaTPFilter" name="thanhPhoMaTPFilter" [(ngModel)]="thanhPhoMaTPFilter">
                                 </div>
                             </div>
@@ -105,7 +96,7 @@
                     <div class="primeng-datatable-container col-12"
                          [busyIf]="primengTableHelper.isLoading">
                         <p-table #dataTable
-                                     (onLazyLoad)="getNhanSus($event)"
+                                     (onLazyLoad)="getPhuongXas($event)"
                                      [value]="primengTableHelper.records"
                                      rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
                                      [paginator]="false"
@@ -116,30 +107,26 @@
                                      [resizableColumns]="primengTableHelper.resizableColumns">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th style="width: 130px" [hidden]="!isGrantedAny('Pages.NhanSus.Edit', 'Pages.NhanSus.Delete')">{{l('Actions')}}</th>
-                                    <th style="width: 150px" pSortableColumn="maNhanSu">
-                                        {{l('MaNhanSu')}}
-                                        <p-sortIcon field="nhanSu.maNhanSu"></p-sortIcon>
-                                    </th>
-                                    <th style="width: 150px" pSortableColumn="tenNhanSu">
-                                        {{l('TenNhanSu')}}
-                                        <p-sortIcon field="nhanSu.tenNhanSu"></p-sortIcon>
-                                    </th>
-                                    <th style="width: 150px" pSortableColumn="phongBan">
-                                        {{l('PhongBan')}}
-                                        <p-sortIcon field="nhanSu.phongBan"></p-sortIcon>
-                                    </th>
-                                    <th style="width: 150px" pSortableColumn="thamNien">
-                                        {{l('ThamNien')}}
-                                        <p-sortIcon field="nhanSu.thamNien"></p-sortIcon>
-                                    </th>
-                                    <th style="width: 150px" pSortableColumn="tuoi">
-                                        {{l('Tuoi')}}
-                                        <p-sortIcon field="nhanSu.tuoi"></p-sortIcon>
-                                    </th>
-                                    <th style="width: 150px" pSortableColumn="thanhPhoFk.tenTP">
-                                        Que quan
+                                    <th style="width: 130px" [hidden]="!isGrantedAny('Pages.PhuongXas.Edit', 'Pages.PhuongXas.Delete')">{{l('Actions')}}</th>
+                                    <th style="width: 150px" pSortableColumn="thanhPhoFk.maTP">
+                                        {{l('MaTP')}}
                                         <p-sortIcon field="thanhPhoMaTP"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="maPhuong">
+                                        {{l('MaPhuong')}}
+                                        <p-sortIcon field="phuongXa.maPhuong"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="tenPhuong">
+                                        {{l('TenPhuong')}}
+                                        <p-sortIcon field="phuongXa.tenPhuong"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="soDan">
+                                        {{l('SoDan')}}
+                                        <p-sortIcon field="phuongXa.soDan"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="chuTichPhuong">
+                                        {{l('ChuTichPhuong')}}
+                                        <p-sortIcon field="phuongXa.chuTichPhuong"></p-sortIcon>
                                     </th>
 
                                 </tr>
@@ -147,7 +134,7 @@
 							<ng-template pTemplate="body" let-record="$implicit" let-i="rowIndex">
                                 <tr>
                                     <td style="width: 130px"
-                                        [hidden]="!isGrantedAny('Pages.NhanSus.Edit', 'Pages.NhanSus.Delete')">
+                                        [hidden]="!isGrantedAny('Pages.PhuongXas.Edit', 'Pages.PhuongXas.Delete')">
                                        <div class="btn-group dropdown" dropdown container="body">
                                             <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
                                                 <i class="fa fa-cog"></i><span class="caret"></span> {{l("Actions")}}
@@ -155,43 +142,39 @@
 												<ul class="dropdown-menu"  *dropdownMenu>
 												<li>
 													<a href="javascript:;" 
-														(click)="viewNhanSuModal.show(record)">{{l('View')}}</a>
+														(click)="viewPhuongXaModal.show(record)">{{l('View')}}</a>
 												</li>
 												<li>
-                                                <a href="javascript:;" *ngIf="permission.isGranted('Pages.NhanSus.Edit')" 
-														(click)="createOrEditNhanSuModal.show(record.nhanSu.id)">{{l('Edit')}}</a>												
+                                                <a href="javascript:;" *ngIf="permission.isGranted('Pages.PhuongXas.Edit')" 
+														(click)="createOrEditPhuongXaModal.show(record.phuongXa.id)">{{l('Edit')}}</a>												
                                                 </li>
 												<li>
-											        <a  href="javascript:;" *ngIf="permission.isGranted('Pages.NhanSus.Delete')"
-														(click)="deleteNhanSu(record.nhanSu)">{{l('Delete')}}</a>
+											        <a  href="javascript:;" *ngIf="permission.isGranted('Pages.PhuongXas.Delete')"
+														(click)="deletePhuongXa(record.phuongXa)">{{l('Delete')}}</a>
 												</li>
                                             </ul>
                                         </div>
                                     </td>
                                     <td style="width:150px">
-											<span class="ui-column-title"> {{l('MaNhanSu')}}</span>
-											{{record.nhanSu.maNhanSu}}
+												<span class="ui-column-title"> {{l('MaTP')}}</span>
+												{{record.thanhPhoMaTP}}
+											</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('MaPhuong')}}</span>
+											{{record.phuongXa.maPhuong}}
 										</td>
                                     <td style="width:150px">
-											<span class="ui-column-title"> {{l('TenNhanSu')}}</span>
-											{{record.nhanSu.tenNhanSu}}
+											<span class="ui-column-title"> {{l('TenPhuong')}}</span>
+											{{record.phuongXa.tenPhuong}}
 										</td>
                                     <td style="width:150px">
-											<span class="ui-column-title"> {{l('PhongBan')}}</span>
-											{{record.nhanSu.phongBan}}
+											<span class="ui-column-title"> {{l('SoDan')}}</span>
+											{{record.phuongXa.soDan}}
 										</td>
                                     <td style="width:150px">
-											<span class="ui-column-title"> {{l('ThamNien')}}</span>
-											{{record.nhanSu.thamNien}}
+											<span class="ui-column-title"> {{l('ChuTichPhuong')}}</span>
+											{{record.phuongXa.chuTichPhuong}}
 										</td>
-                                    <td style="width:150px">
-											<span class="ui-column-title"> {{l('Tuoi')}}</span>
-											{{record.nhanSu.tuoi}}
-										</td>
-                                    <td style="width:150px">
-                                            <span class="ui-column-title"> Que quan</span>
-                                            {{record.thanhPhoMaTP}}
-                                        </td>
 
                                 </tr>
                                
@@ -203,7 +186,7 @@
                         <div class="primeng-paging-container">
                             <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage"
                                          #paginator
-                                         (onPageChange)="getNhanSus($event)"
+                                         (onPageChange)="getPhuongXas($event)"
                                          [totalRecords]="primengTableHelper.totalRecordsCount"
                                          [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
                                          [showCurrentPageReport]="true"
@@ -217,8 +200,8 @@
             </div>
         </div>
     </div>
-    <createOrEditNhanSuModal #createOrEditNhanSuModal (modalSave)="getNhanSus()"></createOrEditNhanSuModal>    
-    <viewNhanSuModal #viewNhanSuModal></viewNhanSuModal>
+    <createOrEditPhuongXaModal #createOrEditPhuongXaModal (modalSave)="getPhuongXas()"></createOrEditPhuongXaModal>    
+    <viewPhuongXaModal #viewPhuongXaModal></viewPhuongXaModal>
     
   
 </div>

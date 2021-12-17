@@ -2,19 +2,19 @@
 using Abp.Runtime.Session;
 using Abp.Timing.Timezone;
 using ERP.DataExporting.Excel.EpPlus;
-using ERP.NhanSus.Dtos;
+using ERP.PhuongXas.Dtos;
 using ERP.Dto;
 using ERP.Storage;
 
-namespace ERP.NhanSus.Exporting
+namespace ERP.PhuongXas.Exporting
 {
-    public class NhanSusExcelExporter : EpPlusExcelExporterBase, INhanSusExcelExporter
+    public class PhuongXasExcelExporter : EpPlusExcelExporterBase, IPhuongXasExcelExporter
     {
 
         private readonly ITimeZoneConverter _timeZoneConverter;
         private readonly IAbpSession _abpSession;
 
-        public NhanSusExcelExporter(
+        public PhuongXasExcelExporter(
             ITimeZoneConverter timeZoneConverter,
             IAbpSession abpSession,
             ITempFileCacheManager tempFileCacheManager) :
@@ -24,33 +24,31 @@ namespace ERP.NhanSus.Exporting
             _abpSession = abpSession;
         }
 
-        public FileDto ExportToFile(List<GetNhanSuForViewDto> nhanSus)
+        public FileDto ExportToFile(List<GetPhuongXaForViewDto> phuongXas)
         {
             return CreateExcelPackage(
-                "NhanSus.xlsx",
+                "PhuongXas.xlsx",
                 excelPackage =>
                 {
 
-                    var sheet = excelPackage.Workbook.Worksheets.Add(L("NhanSus"));
+                    var sheet = excelPackage.Workbook.Worksheets.Add(L("PhuongXas"));
                     sheet.OutLineApplyStyle = true;
 
                     AddHeader(
                         sheet,
-                        L("MaNhanSu"),
-                        L("TenNhanSu"),
-                        L("PhongBan"),
-                        L("ThamNien"),
-                        L("Tuoi"),
-                        (L("ThanhPho")) + L("TenTP")
+                        L("MaPhuong"),
+                        L("TenPhuong"),
+                        L("SoDan"),
+                        L("ChuTichPhuong"),
+                        (L("ThanhPho")) + L("MaTP")
                         );
 
                     AddObjects(
-                        sheet, 2, nhanSus,
-                        _ => _.NhanSu.MaNhanSu,
-                        _ => _.NhanSu.TenNhanSu,
-                        _ => _.NhanSu.PhongBan,
-                        _ => _.NhanSu.ThamNien,
-                        _ => _.NhanSu.Tuoi,
+                        sheet, 2, phuongXas,
+                        _ => _.PhuongXa.MaPhuong,
+                        _ => _.PhuongXa.TenPhuong,
+                        _ => _.PhuongXa.SoDan,
+                        _ => _.PhuongXa.ChuTichPhuong,
                         _ => _.ThanhPhoMaTP
                         );
 

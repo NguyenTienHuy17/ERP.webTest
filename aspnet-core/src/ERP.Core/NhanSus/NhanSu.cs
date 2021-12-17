@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
+using ERP.ThanhPhos;
 
 namespace ERP.NhanSus
 {
@@ -28,7 +29,11 @@ namespace ERP.NhanSus
 
         [Range(NhanSuConsts.MinTuoiValue, NhanSuConsts.MaxTuoiValue)]
         public virtual int Tuoi { get; set; }
-        public virtual string QueQuan { get; set; }
 
+
+        //Foreign key for ThanhPho
+        public int ThanhPhoId { get; set; }
+        [ForeignKey("ThanhPhoId")]
+        public ThanhPho ThanhPhoFk { get; set; }
     }
 }

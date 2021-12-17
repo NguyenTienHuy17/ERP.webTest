@@ -14,6 +14,7 @@ namespace ERP.NhanSus.Dtos
         public int ThamNien { get; set; }
 
         public int Tuoi { get; set; }
-        public string QueQuan { get; set; }
+
+        public int ThanhPhoId { get; set; }
     }
 }

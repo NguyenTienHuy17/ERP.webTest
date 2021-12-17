@@ -1,6 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="NhanSus">Danh sach nhan su</text>
+  <texts>    <text name="PhuongXas">Danh sach phuong xa</text>
+    <text name="PhuongXa">Phuong xa</text>
+    <text name="ERP.PhuongXas.PhuongXa">PhuongXa</text>
+    <text name="MaPhuong">Ma phuong</text>
+    <text name="TenPhuong">Ten phuong</text>
+    <text name="SoDan">So dan</text>
+    <text name="ChuTichPhuong">Chu tich phuong</text>
+    <text name="PhuongXasHeaderInfo">Phuong xas header info</text>
+    <text name="CreateNewPhuongXa">Create new phuong xa</text>
+    <text name="EditPhuongXa">Edit phuong xa</text>
+    <text name="DeletePhuongXa">Delete phuong xa</text>
+    <text name="ThanhPhoMaTP">Thanh pho ma t p</text>
+    <text name="PickThanhPho">Pick thanh pho</text>
+    <text name="SelectAThanhPho">Select a thanh pho</text>
+    <text name="NhanSus">Danh sach nhan su</text>
     <text name="NhanSu">Nhan su</text>
     <text name="ERP.NhanSus.NhanSu">NhanSu</text>
     <text name="MaNhanSu">Ma nhan su</text>
